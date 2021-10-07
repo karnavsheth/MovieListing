@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import MovieRow from "./MovieRow";
 import $ from "jquery";
 let data = [
@@ -188,25 +189,32 @@ export class Search extends Component {
     const urlString =
       "https://api.themoviedb.org/3/search/movie?api_key=1b5adf76a72a13bad99b8fc0c68cb085&query=" +
       searchTerm;
-    $.ajax({
-      url: urlString,
-      success: (searchResults) => {
-        console.log("Fetched data successfully");
-        const results = searchResults.results;
 
+    axios.get(`/api/movies/GetAll`).then((res) => {
+      const apiData = res.data;
+      console.log(apiData);
+      this.setState({ filteredData: apiData }, () => {
         var movieRows = [];
-        data.forEach((movie) => {
+        this.state.filteredData.forEach((movie) => {
           const movieRow = (
             <MovieRow key={movie.Title} movie={movie} {...this.props} />
           );
           movieRows.push(movieRow);
         });
         this.setState({ rows: movieRows });
-      },
-      error: (xhr, status, err) => {
-        console.error("Failed to fetch data");
-      },
+      });
     });
+    //  $.ajax({
+    //     url: urlString,
+    //     success: (searchResults) => {
+    console.log("Fetched data successfully");
+    // const results = searchResults.results;
+
+    //   },
+    //   error: (xhr, status, err) => {
+    //    console.error("Failed to fetch data");
+    //  },
+    // });
   }
 
   searchChangeHandler(event) {

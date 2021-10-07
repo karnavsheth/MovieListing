@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 let data = [
   {
@@ -180,19 +181,17 @@ export class MovieDetails extends React.Component {
   };
 
   componentDidMount() {
-    // axios
-    //   .get(
-    //     ` http://localhost:50465/api/asset/getassetdetails?assetId=` +
-    //       this.props.match.params.id
-    //   )
-    //   .then((res) => {
-    //     const assetDetails = res.data;
-    //     this.setState({ AssetDetails: assetDetails, isLoaded: true });
-    //   });
+    axios
+      .get(
+        `/api/movies/` +
+          this.props.match.params.id
+      )
+      .then((res) => {
+        const movieDetail = res.data;
+        this.setState({ movieDetails: movieDetail });
+      });
 
-    var id = this.props.match.params.id;
-    var movie = data.filter((x) => x.imdbID === id)[0];
-    this.setState({ movieDetails: movie });
+
   }
   viewMovie() {}
   render() {
@@ -200,15 +199,15 @@ export class MovieDetails extends React.Component {
       <>
         {this.state.movieDetails && (
           <>
-            <h3>{this.state.movieDetails.Title}</h3>
+            <h3>{this.state.movieDetails.title}</h3>
             <div style={{ display: "flex" }}>
               <img
                 alt="poster"
                 width="120"
                 style={{ padding: "10px" }}
-                src={this.state.movieDetails.Poster}
+                src={this.state.movieDetails.poster}
               />{" "}
-              <p>{this.state.movieDetails.Plot}</p>
+              <p>{this.state.movieDetails.plot}</p>
             </div>
             <div style={{ fontSize: "15px" }}>
               <strong>IMDB Rating: </strong>{" "}
@@ -216,16 +215,16 @@ export class MovieDetails extends React.Component {
             </div>
             <div style={{ fontSize: "15px" }}>
               <strong>Location: </strong>{" "}
-              {this.state.movieDetails.Location}
+              {this.state.movieDetails.location}
             </div>
             <div style={{ fontSize: "15px" }}>
               <strong>Langauge: </strong>{" "}
-              {this.state.movieDetails.Language}
+              {this.state.movieDetails.language}
             </div>
             
             <div style={{ fontSize: "14px" }}><strong>Stills:</strong></div>
             <div style={{ display: "flex" }}>
-              {this.state.movieDetails.Stills.map((skill) => {
+              {this.state.movieDetails.stills.map((skill) => {
                 return (
                   <img
                     alt="poster"
