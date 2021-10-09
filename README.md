@@ -4,7 +4,7 @@
 </br>
 <i>Server:</i>
 ASP.NET Core 3.1<br/>
-<i>Client</i>
+<i>Client:</i>
 React 16
 CSS Modules
 axios API for REST requests
