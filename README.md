@@ -9,6 +9,9 @@ React 16
 CSS Modules
 axios API for REST requests
 
+</br>
+<b>For the sake of simplicity json file is being used as datastore, which can replaced any database easily.</b>
+
 
 ## Setup
 
